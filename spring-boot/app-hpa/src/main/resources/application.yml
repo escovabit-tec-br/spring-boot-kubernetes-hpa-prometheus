@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: app-hpa
+
+# Configuração do Actuator para mostrar detalhes
+management:
+  endpoint:
+    health:
+      show-details: "always"
+  endpoints:
+    web:
+      exposure:
+        include: "*"
