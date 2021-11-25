@@ -1,0 +1,21 @@
+prometheus:
+  prometheusSpec:
+    podMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: standard
+          accessModes: ['ReadWriteOnce']
+          resources:
+            requests:
+              storage: 16Gi
+  service:
+    sessionAffinity: ClientIP
+    port: 80
+
+grafana:
+  namespaceOverride: l1-mntg-grafana
+  persistence:
+    enabled: true
+    storageClassName: standard

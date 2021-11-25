@@ -1,0 +1,18 @@
+prometheus:
+  url: http://prometheus-kube-prometheus-prometheus.l4-mntg-prometheus
+  port: 80
+rules:
+  default: true
+  custom:
+    - seriesQuery: '{__name__=~"^http_server_requests_seconds_.*",container!="POD",namespace!="",pod!=""}'
+      seriesFilters: []
+      resources:
+        overrides:
+          namespace:
+            resource: namespace
+          pod:
+            resource: pod
+      name:
+        matches: '^http_server_requests_seconds_count$'
+        as: 'sum_http_server_requests_seconds_count_filted'
+      metricsQuery: sum(rate(<<.Series>>{<<.LabelMatchers>>,uri!~"UNKNOWN|^/actuator/.*"}[5m])) by (<<.GroupBy>>)

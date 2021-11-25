@@ -1,4 +1,6 @@
-# Docker Readme
+# Docker
+
+Aqui estão as informações de como fazer o build da aplicação
 
 ## Como fazer o build
 
