@@ -1,0 +1,24 @@
+{{- if .Values.serviceMonitor.enabled -}}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    {{- include "app-hpa.labels" . | nindent 4 }}
+  name: {{ include "app-hpa.fullname" . }}
+  namespace: {{ include "app-hpa.namespace" . }}
+spec:
+  endpoints:
+    - honorLabels: true
+      interval: 1m
+      path: {{ .Values.serviceMonitor.url }}
+      port: http
+      scheme: http
+      scrapeTimeout: 30s
+  jobLabel: {{ include "app-hpa.fullname" . }}
+  namespaceSelector:
+    matchNames:
+      - {{ include "app-hpa.namespace" . }}
+  selector:
+    matchLabels:
+      {{- include "app-hpa.selectorLabels" . | nindent 6 }}
+{{- end }}
