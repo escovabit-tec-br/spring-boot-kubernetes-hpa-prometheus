@@ -12,3 +12,11 @@ export CUSTOM_VALUES=./values.yaml
 export RELEASE=app-hpa
 helm upgrade $RELEASE --values $CUSTOM_VALUES --namespace $NAMESPACE --create-namespace --install .
 ```
+
+## removendo
+
+Fazendo o uninstall do helm
+
+```bash
+helm uninstall $RELEASE --namespace $NAMESPACE
+```

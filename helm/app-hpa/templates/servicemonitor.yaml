@@ -14,7 +14,6 @@ spec:
       port: http
       scheme: http
       scrapeTimeout: 30s
-  jobLabel: "{{ include "app-hpa.fullname" . }}-{{ include "app-hpa.namespace" . }}"
   namespaceSelector:
     matchNames:
       - {{ include "app-hpa.namespace" . }}
