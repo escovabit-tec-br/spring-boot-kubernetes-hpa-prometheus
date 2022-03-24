@@ -29,7 +29,8 @@ public class MicrometerConfiguration {
             @Value("${spring.application.name}") String applicationName) {
 
         return registry -> registry.config()
-                .commonTags("host", getHostName(), "ip", getHostAddress(), "application", applicationName)
+                .commonTags("host", getHostName(), "instance", getHostName(), "ip", getHostAddress(), "application",
+                        applicationName)
                 .meterFilter(denyFrameworkURIsFilter());
     }
 
