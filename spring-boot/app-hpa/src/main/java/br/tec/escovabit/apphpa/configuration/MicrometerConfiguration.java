@@ -19,8 +19,8 @@ import io.micrometer.core.instrument.config.MeterFilter;
 public class MicrometerConfiguration {
 
     private static final String UNKNOW = "unknow";
-    private static final List<String> NON_APPLICATION_ENDPOINTS = Arrays.asList("/swagger", "/**", "/v2/api-docs",
-            "/webjars");
+    private static final List<String> NON_APPLICATION_ENDPOINTS = Arrays.asList(
+            "/swagger", "/**", "/v2/api-docs", "/webjars");
     private static final Logger LOGGER = Logger.getLogger(MicrometerConfiguration.class.getName());
     private static final String TAG_URI = "uri";
 
@@ -29,8 +29,11 @@ public class MicrometerConfiguration {
             @Value("${spring.application.name}") String applicationName) {
 
         return registry -> registry.config()
-                .commonTags("host", getHostName(), "instance", getHostName(), "ip", getHostAddress(), "application",
-                        applicationName)
+                .commonTags(
+                        "host", getHostName(),
+                        "instance", getHostName(),
+                        "ip", getHostAddress(),
+                        "application", applicationName)
                 .meterFilter(denyFrameworkURIsFilter());
     }
 
@@ -40,7 +43,11 @@ public class MicrometerConfiguration {
 
     private static boolean isNonApplicationEndpoint(String uri) {
         return uri != null
-                && NON_APPLICATION_ENDPOINTS.stream().map(uri::startsWith).filter(i -> i).findFirst().orElse(false);
+                && NON_APPLICATION_ENDPOINTS.stream()
+                        .map(uri::startsWith)
+                        .filter(i -> i)
+                        .findFirst()
+                        .orElse(false);
     }
 
     private static String getHostName() {
